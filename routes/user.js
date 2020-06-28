@@ -1,0 +1,16 @@
+const { Router } = require('express')
+const expenseController = require('../controllers/expense')
+const userController = require('../controllers/user')
+const auth = require('../utils/auth')
+const router = Router()
+
+router.get('/login', userController.get.login)
+router.post('/login', userController.post.login)
+router.get('/register', userController.get.register)
+router.post('/register', userController.post.register)
+router.get('/logout', auth(), userController.get.logout)
+router.get('/account-info', auth(), userController.get.accountInfo)
+router.get('/account-info', auth(), userController.get.accountInfo)
+router.post('/refill', auth(), userController.post.refill)
+router.all('*', auth(false), expenseController.get.notFound)
+module.exports = router
